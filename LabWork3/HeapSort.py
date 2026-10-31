@@ -45,7 +45,6 @@ def heapsort(arr):
         print(f"Масив на поточному кроці: {arr}\n")
     return arr
 
-# Моделювання для Варіанту 17
 A = [7, 89, 4, 68, 70, 49, 10, 62, 51]
 sorted_A = heapsort(A.copy())
 print(f"Відсортований масив: {sorted_A}")
