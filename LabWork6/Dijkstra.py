@@ -1,12 +1,17 @@
 import sys
+
 V = 8               # Кількість вершин графа
 INF = float('inf')  # Нескінченність
+
 # Матриця ваг графа (індексація з 1 до V)
 graph = [[0] * (V + 1) for _ in range(V + 1)]
+
 # Допоміжна функція для додавання неорієнтованого ребра
+
 def add_edge(u: int, v: int, weight: int) -> None:
     graph[u][v] = weight
     graph[v][u] = weight
+    
 def extract_min_from_pq(dist: list[float], in_pq: list[bool]) -> int:
     min_val = INF
     min_vertex = -1
@@ -17,11 +22,14 @@ def extract_min_from_pq(dist: list[float], in_pq: list[bool]) -> int:
     if min_vertex != -1:
         in_pq[min_vertex] = False
     return min_vertex
+    
 # Рекурсивне формування шляху від стартової вершини до v
+
 def get_path(pred: list[int], v: int) -> str:
     if pred[v] == -1:
         return str(v)
     return get_path(pred, pred[v]) + f" -> {v}"
+    
 def dijkstra(s: int) -> None:
     pred = [-1] * (V + 1)
     dist = [INF] * (V + 1)
@@ -36,6 +44,7 @@ def dijkstra(s: int) -> None:
             dist[v] = 0
         in_pq[v] = True  # InsertInPQ(pq, v, dist[v])
         pq_size += 1
+        
     # Основний цикл
     while pq_size != 0:
         u = extract_min_from_pq(dist, in_pq)
@@ -48,7 +57,9 @@ def dijkstra(s: int) -> None:
                 if dist[u] != INF and dist[v] > dist[u] + graph[u][v]:
                     dist[v] = dist[u] + graph[u][v]
                     pred[v] = u
+                    
                     # UpdatePQ виконується автоматично через оновлення dist[v]
+    
     # Вивід результатів
     print("Path : Weight")
     for v in range(1, V + 1):
@@ -57,7 +68,8 @@ def dijkstra(s: int) -> None:
         print(f"{get_path(pred, v)} : {int(dist[v])}")
 if __name__ == "__main__":
     sys.stdout.reconfigure(encoding="utf-8")
-    # Ребра графа (Варіант 17)
+    
+    # Ребра графа 
     add_edge(1, 2, 3)
     add_edge(1, 3, 2)
     add_edge(1, 4, 4)
